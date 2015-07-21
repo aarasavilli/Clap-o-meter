@@ -25,7 +25,11 @@ io.on('connection', function(socket){
 		io.emit('updateClap',counter);
 		//webServerSocket.emit('updateClap',counter);
 		return callback(counter);
-    });
+    })
+	
+	socket.on('event:get:countervalue',function(callback) {
+		return callback(counter);
+	});
 });
 
 server.listen(8001,function(){

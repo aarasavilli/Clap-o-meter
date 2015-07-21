@@ -52,6 +52,14 @@ socket.on('updateClap',function(counter){
 		gauge.set(counter);
 		document.getElementById('odo').innerHTML = counter;
     });
+	
+	function getCounterValue() {
+		socket.emit('event:get:countervalue',function(counterValue) {
+				alert('call back called'+counterValue);
+		});
+	}
 	</script>
   </body>
+	
+
 </html>
