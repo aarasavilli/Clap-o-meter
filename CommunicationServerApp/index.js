@@ -4,6 +4,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var interIO = require('socket.io');
 //var webServerSocket = interIO.connect('http://localhost:3000');
+var claps = require('./data/claps');
+
 var counter = 0;
 
 app.get('/', function(req, res){
@@ -19,6 +21,7 @@ io.on('connection', function(socket){
     socket.on('event:new:clap',function(callback){
 		counter = counter+1;
 		console.log('clap count: '+counter);
+		claps.add(counter, new Date(), function(){});
 		io.emit('updateClap',counter);
 		//webServerSocket.emit('updateClap',counter);
 		return callback(counter);
