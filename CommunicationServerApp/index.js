@@ -18,7 +18,7 @@ io.on('connection', function(socket){
 
     socket.on('event:new:clap',function(callback){
 		counter = counter+1;
-		console.log('clapped'+counter);
+		console.log('clap count: '+counter);
 		io.emit('updateClap',counter);
 		//webServerSocket.emit('updateClap',counter);
 		return callback(counter);
@@ -26,5 +26,5 @@ io.on('connection', function(socket){
 });
 
 server.listen(8001,function(){
-    console.log('Socket.io Running');
+    console.log('Socket.io Running on port: 8001');
 });
