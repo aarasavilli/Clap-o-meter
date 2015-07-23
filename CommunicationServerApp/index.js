@@ -2,16 +2,16 @@ var express = require('express');
 var app=express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var interIO = require('socket.io');
-//var webServerSocket = interIO.connect('http://localhost:3000');
+var interIO = require('socket.io-client');
+var webServerSocket = interIO.connect('http://localhost:3000');
 var claps = require('./data/claps');
 
 var counter = 0;
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+webServerSocket.on('connect', function(socket) { 
+    console.log('Connected! to Web server');
+	
 });
-app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
 	socket.on('testConnection', function() {
@@ -23,7 +23,7 @@ io.on('connection', function(socket){
 		console.log('clap count: '+counter);
 		claps.add(counter, new Date(), function(){});
 		io.emit('updateClap',counter);
-		//webServerSocket.emit('updateClap',counter);
+		webServerSocket.emit('updateClap',counter);
 		return callback(counter);
     })
 	

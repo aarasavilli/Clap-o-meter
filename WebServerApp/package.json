@@ -1,0 +1,15 @@
+{
+  "name": "main",
+  "version": "0.0.0",
+  "description": "server for pushing web page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kunal Shivnekar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.13.1",
+    "socket.io": "~1.3.6"
+  }
+}

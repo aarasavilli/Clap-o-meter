@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CLAP-O-METER</title>
+    <link rel="stylesheet" type="text/css" href="/odometer-theme-plaza.css">
+	<script src="/odometer.js"></script>
+	<script src="/gauge.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	
+
+  </head>
+  
+  <body>
+	<div style="text-align: center;"><img  width="300" height="75"src="/download.jpg"></div>
+	
+	<div style="margin-top:100px;">
+	<div id="preview" style="text-align: center;">
+  	<canvas width="300" height="200" id="foo"></canvas>
+  	</div>
+	<div style="text-align: center;">
+  <span style="color: #648baf;"><h2>Clap Count</h2></span>
+  <div id="odo" class="odometer"> </div>
+</div>
+</div>
+<script>
+var socket = io.connect();
+var gauge;
+
+	var opts = {
+  lines: 12, // The number of lines to draw
+  angle: 0.15, // The length of each line
+  lineWidth: 0.44, // The line thickness
+  pointer: {
+    length: 0.9, // The radius of the inner circle
+    strokeWidth: 0.035, // The rotation offset
+    color: '#000000' // Fill color
+  },
+  limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+  colorStart: '#6FADCF',   // Colors
+  colorStop: '#8FC0DA',    // just experiment with them
+  strokeColor: '#E0E0E0',   // to see which ones work best for you
+  generateGradient: true
+};
+var target = document.getElementById('foo'); // your canvas element
+gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+gauge.maxValue = 30; // set max gauge value
+gauge.animationSpeed = 43; // set animation speed (32 is default value)
+
+
+
+socket.on('updateClapinUI',function(counter){
+		
+		gauge.set(counter);
+		document.getElementById('odo').innerHTML = counter;
+    });
+	
+	function getCounterValue() {
+		socket.emit('event:get:countervalue',function(counterValue) {
+				alert('call back called'+counterValue);
+		});
+	}
+	</script>
+  </body>
+	
+
+</html>
