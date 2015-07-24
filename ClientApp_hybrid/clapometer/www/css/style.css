@@ -1,1 +1,69 @@
-/* Empty. Add your own CSS if you like */
+* {
+  margin: 0;
+}
+body {
+  background: url("img/bg.gif");
+  font:14px Arial;
+}
+@keyframes circle {
+	from {
+		transform: scale(0);
+		opacity: 1;
+	}
+	to {
+		transform: scale(2);
+		opacity: 0;
+		}
+}
+.circle {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;  
+  background:rgba(256,0,0,0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 52%;
+  left: 31%;
+  z-index:999;
+}
+
+.circlebtn {
+  background: rgba(255, 0, 0, 0.1);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    height: 200px;
+    left: 31%;
+    line-height: 200px;
+    margin: 0 auto;
+    position: absolute;
+    text-align: center;
+    top: 52%;
+    width: 200px;
+    z-index: 999;
+}
+.one {
+  animation: circle 10s infinite linear;
+}
+.two {
+  animation: circle 8s infinite linear;
+}
+.three {
+  animation: circle 1s infinite linear;
+} 
+.clapBlock{ position:relative;width:450px;margin:30px auto;cursor:hand;cursor:pointer;}
+.clapBlock img{width:100%;z-index:888;
+}
+h2{box-shadow:1px 1px 3px #000;color:#00BCFF;text-shadow:1px 1px #000;background:#DBEFF5;
+ padding:15px 5px;margin:0px;text-align:center;
+ font-size:30px;
+}
+@media (max-width:460px){
+.clapBlock{width:95%;}
+.clapBlock img{width:100%;z-index:888;}
+.circle,.circlebtn{
+	left:28%;
+	top:45%;
+	}
+}

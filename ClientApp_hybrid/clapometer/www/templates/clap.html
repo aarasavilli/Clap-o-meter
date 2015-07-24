@@ -1,8 +1,12 @@
-<ion-view title="Lets Clap!!"   >
-	<ion-content has-header="true" padding="true" style="background-image:url(img/mesh.jpg); background-repeat: no-repeat;">
-		<div style="text-align:center;margin-top:100px">
-		<button style="background-repeat: no-repeat;background-image:url(img/clapbutton.png); height:200px; width:200px; border:none" ng-click="sendClap()"></button>
-		</div>
-		<!--<p>Count:{{counterValue}}</p>-->
+<ion-view>
+	<ion-content  style='background: #555 url("img/bg.gif")'>
+        <h2>CLAP-'O'-METER</h2>
+        <div class="clapBlock" ng-click="sendClap()">
+            <img src="img/hand.png"/>  
+            <div class="circlebtn">Touch to Clap</div>
+            <div class="circle one"></div>
+            <div class="circle two"></div>
+            <div class="circle three"></div>
+        </div>
 	</ion-content>
 </ion-view>
