@@ -13,6 +13,17 @@ webServerSocket.on('connect', function(socket) {
 	
 });
 
+var countdown = 30000;  
+
+setInterval(function() {  
+  countdown--;
+  counter = 0;
+  io.sockets.emit('timer', { countdown: countdown });
+  io.emit('updateClap',counter);
+  webServerSocket.emit('updateClap',counter);
+}, 30000);
+
+
 io.on('connection', function(socket){
 	socket.on('testConnection', function() {
 		console.log('Recevied test');
