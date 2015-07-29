@@ -79,7 +79,7 @@ io.on('connection', function(socket){
 		console.log('Stored : ' + questionArray[questionID][response]);
 		
 		//Emit the user response to web server
-		webServerSocket.emit('questionResponse',questionArray[questionID]);
+		webServerSocket.emit('questionResponse',questionID,questionArray[questionID]);
 	});
 	
 	socket.on('connection', function() {
