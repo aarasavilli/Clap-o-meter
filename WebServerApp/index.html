@@ -6,14 +6,16 @@
 	<script src="/odometer.js"></script>
 	<script src="/gauge.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-	
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+     <script src="http://code.highcharts.com/highcharts.js"></script>
+     <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
   </head>
   
   <body>
 	<div style="text-align: center;"><img  width="300" height="75"src="/download.jpg"></div>
 	
-	<div style="margin-top:100px;">
+	<div style="margin-top:10px;">
 	<div id="preview" style="text-align: center;">
   	<canvas width="300" height="200" id="foo"></canvas>
   	</div>
@@ -21,6 +23,12 @@
   <span style="color: #648baf;"><h2>Clap Count</h2></span>
   <div id="odo" class="odometer"> </div>
 </div>
+<div style="text-align:center;margin-top:10px">
+<select id="combobox" style="display:none" onchange="selectquestion()" style="width:500px;border:3px solid;border-radius:5px;allign:center">
+ 
+</select>
+</div>
+<div id="container" style="min-width: 310px; margin-top:10px;max-width: 800px; height: 400px; margin: 0 auto"></div>
 </div>
 <script>
 var socket = io.connect();
@@ -54,11 +62,107 @@ socket.on('updateClapinUI',function(counter){
 		document.getElementById('odo').innerHTML = counter;
     });
 	
+	//update barchart on each question event
+	socket.on('UpdateQuestionCountinUI',function(result){
+	if(!$("#container").is(':visible'))
+	{
+	$('combobox').css.display=block;
+	$('#container').show();
+	}
+	
+	addoptiontoCombo(questionno);
+	 var result = '{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}';
+					console.log(result.question);
+				//	aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+    });
+	
+	
 	function getCounterValue() {
 		socket.emit('event:get:countervalue',function(counterValue) {
 				alert('call back called'+counterValue);
 		});
 	}
+	function addoptiontoCombo(questionno) {
+    var combo = document.getElementById("combobox");
+     
+    var option = document.createElement("option");
+    option.text = questionno;
+    option.value = questionno;
+    try {
+        combo.add(option, null); //Standard 
+    }catch(error) {
+        combo.add(option); // IE only
+    }
+   questionno= "";
+}
+	
+	
+	function selectquestion() {
+	var selectedquestion=$('#combobox :selected').text();
+      socket.emit('event:sendquestionselected',function(result) {
+				alert('result'+result);
+				 result = '{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}'
+				    var jsonresult = $.parseJSON(result);  
+               	aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+                    });
+		}
+   
+   
+
+	
+	//added by sonal
+	var chart;
+
+$(function () {
+	// create chart
+	$('#container').hide();
+	chart = new Highcharts.Chart({
+        chart: {
+		renderTo: 'container',
+            type: 'column'
+        },
+        title: {
+            text: 'Response Count'
+        },
+        xAxis: {
+            categories: ['Yes', 'No', 'Dont Care']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total count response'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'QuestionClapedCount',
+            //data: [15, 20, 40]
+        }]
+    });
+
+	function aa(yes,no,dontcare) {
+	
+		var chartData = [yescnt, nocnt, dontcarecnt];
+		
+		// this is how we set the data of chart
+		// note: on top, "chart" variable is declared
+		chart.series[0].setData(chartData);
+		
+	
+
+	}
+	
+	setInterval(aa, 2000);
+	
+ ;
+});
 	</script>
   </body>
 	
