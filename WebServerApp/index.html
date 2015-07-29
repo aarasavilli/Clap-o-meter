@@ -66,15 +66,21 @@ socket.on('updateClapinUI',function(counter){
 	socket.on('UpdateQuestionCountinUI',function(result){
 	if(!$("#container").is(':visible'))
 	{
+	console.log("visible"+$("#container").is(':visible'));
 	$('combobox').css.display=block;
 	$('#container').show();
 	}
 	
 	addoptiontoCombo(questionno);
-	 var result = '{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}';
+	 //var result = '{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}';
 					console.log(result.question);
-				//	aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+					var jsonresult = JSON.parse(result);
+			aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
     });
+	socket.on('gotresponseforquestionselected',function(result){
+	var jsonresult = JSON.parse(result);
+			aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+	});
 	
 	
 	function getCounterValue() {
@@ -99,11 +105,7 @@ socket.on('updateClapinUI',function(counter){
 	
 	function selectquestion() {
 	var selectedquestion=$('#combobox :selected').text();
-      socket.emit('event:sendquestionselected',function(result) {
-				alert('result'+result);
-				 result = '{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}'
-				    var jsonresult = $.parseJSON(result);  
-               	aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+      socket.emit('event:sendquestionselected',function(selectedquestion) {
                     });
 		}
    
@@ -147,7 +149,7 @@ $(function () {
         }]
     });
 
-	function aa(yes,no,dontcare) {
+	function aa(yescnt,nocnt,dontcarecnt) {
 	
 		var chartData = [yescnt, nocnt, dontcarecnt];
 		
