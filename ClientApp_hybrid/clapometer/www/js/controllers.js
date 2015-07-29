@@ -1,15 +1,41 @@
-angular.module('clap.controllers',[])
-	.controller('ClapController',['$scope', function($scope, SOCKET_URL){
+angular.module('clap.controllers',['ionic'])
+	.controller('ClapController',function($scope, $ionicPopup, $timeout){
 		var socket = io.connect('http://10.50.2.85:8001');
 		$scope.sendClap = function(){
-			console.log('send clap event');
-  			socket.emit('event:new:clap',function(data){
+  			 socket.emit('event:new:clap',function(data){
 				console.log('data'+data);
-			});
+			}); 
+
 		}
 		
-		socket.on('updateClap',function(data){
-			$scope.counterValue = data;
+		socket.on('showQuestion',function(question){
+			var myPopup = $ionicPopup.show({
+    template: question,
+    title: 'Quiz',
+    subTitle: 'Please use normal things',
+    scope: $scope,
+    buttons: [
+	  { text: 'None' },
+      { text: 'Cancel' },
+      {
+        text: '<b>Save</b>',
+        type: 'button-positive',
+        onTap: function(e) {
+          console.log('Tapped! Save');
+        }
+      }
+    ]
+  });
+  myPopup.then(function(res) {
+    console.log('Tapped!', res);
+  });
+  $timeout(function() {
+     myPopup.close(); //close the popup after some seconds 
+  }, 5000);
+ 
+
+   
+
 		});
 
-	}]);
+	});
