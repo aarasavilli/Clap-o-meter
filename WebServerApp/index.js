@@ -12,17 +12,17 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(client){
 	console.log('Someone connected');
 	client.on('updateClap',function(counter){
-	console.log('claps update' + counter);
+	//console.log('claps update' + counter);
 	io.emit('updateClapinUI',counter);
 	//io.emit('UpdateQuestionCountinUI','[{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}]');
 	});
-	client.on('UpdateQuestionCount',function(result){
-
-	io.emit('UpdateQuestionCountinUI',result);
+	client.on('questionResponse',function(result){
+       console.log(result);
+	io.emit('UpdateQuestionResponseinUI',result);
 	});
 	client.on('event:sendquestionselected',function(questionno){
 
-	communicationServerSocket.emit('UpdateQuestionCountinUI',result);
+	communicationServerSocket.emit('sendquestionselected',result);
 	});
 	client.on('gotresponseforquestionselected',function(result){
 

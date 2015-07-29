@@ -3,6 +3,7 @@
   <head>
     <title>CLAP-O-METER</title>
     <link rel="stylesheet" type="text/css" href="/odometer-theme-plaza.css">
+
 	<script src="/odometer.js"></script>
 	<script src="/gauge.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -20,17 +21,19 @@
   	<canvas width="300" height="200" id="foo"></canvas>
   	</div>
 	<div style="text-align: center;">
-  <span style="color: #648baf;"><h2>Clap Count</h2></span>
+  <span style="color: #648baf;"><h4>Clap Count</h4></span>
   <div id="odo" class="odometer"> </div>
 </div>
 <div style="text-align:center;margin-top:10px">
-<select id="combobox" style="display:none" onchange="selectquestion()" style="width:500px;border:3px solid;border-radius:5px;allign:center">
+<select id="combobox"   onchange="selectquestion()" style="width:500px;display:none;border:3px solid;border-radius:5px;allign:center">
  
 </select>
 </div>
 <div id="container" style="min-width: 310px; margin-top:10px;max-width: 800px; height: 400px; margin: 0 auto"></div>
+
 </div>
 <script>
+
 var socket = io.connect();
 var gauge;
 
@@ -63,19 +66,22 @@ socket.on('updateClapinUI',function(counter){
     });
 	
 	//update barchart on each question event
-	socket.on('UpdateQuestionCountinUI',function(result){
+	socket.on('UpdateQuestionResponseinUI',function(result){
+	console.log(result);
 	if(!$("#container").is(':visible'))
 	{
 	console.log("visible"+$("#container").is(':visible'));
-	$('combobox').css.display=block;
+	//$('combobox').css.display=block;
 	$('#container').show();
+	$('combobox').show();
 	}
 	
-	addoptiontoCombo(questionno);
+	//addoptiontoCombo(questionno);
 	 //var result = '{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}';
 					console.log(result.question);
-					var jsonresult = JSON.parse(result);
-			aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+					//var jsonresult = JSON.parse(result);
+					console.log(result.question+result.yesCount+result.noCount+result.dontCareCount);
+			aa(result.question,result.yesCount,result.noCount,result.dontCareCount);
     });
 	socket.on('gotresponseforquestionselected',function(result){
 	var jsonresult = JSON.parse(result);
@@ -101,7 +107,7 @@ socket.on('updateClapinUI',function(counter){
     }
    questionno= "";
 }
-	
+
 	
 	function selectquestion() {
 	var selectedquestion=$('#combobox :selected').text();
@@ -110,13 +116,28 @@ socket.on('updateClapinUI',function(counter){
 		}
    
    
+function aa(question,yescnt,nocnt,dontcarecnt) {
+	
+		var chartData = [yescnt, nocnt, dontcarecnt];
+		//var chartData = [130, 100, 150];
+		// this is how we set the data of chart
+		// note: on top, "chart" variable is declared
+		 chart.setTitle({
+            text: question
+        });
+		chart.series[0].setData(chartData);
+		
+	
 
+	}
 	
 	//added by sonal
 	var chart;
 
 $(function () {
 	// create chart
+	
+
 	$('#container').hide();
 	chart = new Highcharts.Chart({
         chart: {
@@ -145,25 +166,15 @@ $(function () {
         },
         series: [{
             name: 'QuestionClapedCount',
-            //data: [15, 20, 40]
+            data: [15, 20, 40]
         }]
     });
 
-	function aa(yescnt,nocnt,dontcarecnt) {
 	
-		var chartData = [yescnt, nocnt, dontcarecnt];
-		
-		// this is how we set the data of chart
-		// note: on top, "chart" variable is declared
-		chart.series[0].setData(chartData);
-		
 	
-
-	}
+	//setInterval(aa, 2000);
 	
-	setInterval(aa, 2000);
-	
- ;
+ 
 });
 	</script>
   </body>
