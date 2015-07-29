@@ -1,6 +1,6 @@
 angular.module('clap.controllers',['ionic'])
 	.controller('ClapController',function($scope, $ionicPopup, $timeout){
-		var socket = io.connect('http://10.50.2.85:8001');
+		var socket = io.connect('http://localhost:8001');
 		$scope.sendClap = function(){
   			 socket.emit('event:new:clap',function(data){
 				console.log('data'+data);

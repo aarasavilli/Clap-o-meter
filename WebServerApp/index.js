@@ -13,6 +13,11 @@ io.on('connection', function(client){
 	client.on('updateClap',function(counter){
 	console.log('claps update' + counter);
 	io.emit('updateClapinUI',counter);
+	io.emit('UpdateQuestionCountinUI','[{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}]');
+	});
+	client.on('UpdateQuestionCount',function(result){
+
+	io.emit('UpdateQuestionCountinUI',result);
 	});
 });
 
