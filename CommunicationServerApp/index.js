@@ -9,11 +9,36 @@ var claps = require('./data/claps');
 var counter = 0;
 var questionArray= 
 					[
-					{ "question": "question 1" },
-					{ "question": "question 2" },
-					{ "question": "question 3" },
-					{ "question": "question 4" },
-					{ "question": "question 5" }
+					{ "question" : "question 0",
+					  "yesCount" : 0,
+					  "noCount" : 0,
+					  "dontCareCount" : 0,
+					  "notAnswered" : 0
+					},
+					{ "question" : "question 1",
+					  "yesCount" : 0,
+					  "noCount" : 0,
+					  "dontCareCount" : 0,
+					  "notAnswered" : 0
+					},
+					{ "question" : "question 2",
+					  "yesCount" : 0,
+					  "noCount" : 0,
+					  "dontCareCount" : 0,
+					  "notAnswered" : 0
+					},
+					{ "question" : "question 3",
+					  "yesCount" : 0,
+					  "noCount" : 0,
+					  "dontCareCount" : 0,
+					  "notAnswered" : 0
+					},
+					{ "question" : "question 4",
+					  "yesCount" : 0,
+					  "noCount" : 0,
+					  "dontCareCount" : 0,
+					  "notAnswered" : 0
+					}
 					];
 webServerSocket.on('connect', function(socket) { 
     console.log('Connected! to Web server');
@@ -32,19 +57,30 @@ setInterval(function() {
 
 io.on('connection', function(socket){
 	
+	// Emit questions logic : read a question at a regular interval and emit question to mobile client
 	var questionCounter = setInterval(function () {myTimer()}, 10000);
 	var queNumber = 0;
 	function myTimer() {
 	if(queNumber < questionArray.length){
-		console.log('question : '+ questionArray[queNumber].question);
-		socket.emit('showQuestion', questionArray[queNumber].question);
+		//console.log('number :' + queNumber + ' question : '+ questionArray[queNumber].question);
+		socket.emit('showQuestion', queNumber, questionArray[queNumber].question);
 		queNumber = queNumber +1;
 	}
 	else{
 		clearInterval(questionCounter);
-		console.log('counter stopped');
+		//console.log('counter stopped');
 	}
 	}
+	
+	//Receive response from mobile client
+	socket.on('questionResponse', function(questionID, response) {
+		console.log('Received response for ID: '+ questionID + ' - ' + response);
+		questionArray[questionID][response] = questionArray[questionID][response] + 1;
+		console.log('Stored : ' + questionArray[questionID][response]);
+		
+		//Emit the user response to web server
+		webServerSocket.emit('questionResponse',questionArray[questionID]);
+	});
 	
 	socket.on('connection', function() {
 		console.log('Recevied test');

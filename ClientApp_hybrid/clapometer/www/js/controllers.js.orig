@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 angular.module('clap.controllers',['ionic'])
 	.controller('ClapController',function($scope, $ionicPopup, $timeout){
+		var socket = io.connect('http://10.50.2.85:8001');
+=======
+angular.module('clap.controllers',[])
+	.controller('ClapController',['$scope', function($scope, SOCKET_URL){
 		var socket = io.connect('http://localhost:8001');
+>>>>>>> c7db01cb219bca8c2eda5a08662744b1eaaf5b8b
 		$scope.sendClap = function(){
   			 socket.emit('event:new:clap',function(data){
 				console.log('data'+data);
@@ -8,31 +14,26 @@ angular.module('clap.controllers',['ionic'])
 
 		}
 		
-		socket.on('showQuestion',function(queNumber,question){
+		socket.on('showQuestion',function(question){
 			var myPopup = $ionicPopup.show({
     template: question,
     title: 'Quiz',
     subTitle: 'Please use normal things',
     scope: $scope,
     buttons: [
-	  { text: 'Dont Care',
-		onTap: function(e) { return 'dontCareCount'; }
-	  },
-      { text: 'No',
-		onTap: function(e) { return 'noCount'; }
-      },
+	  { text: 'None' },
+      { text: 'Cancel' },
       {
-        text: '<b>Yes</b>',
+        text: '<b>Save</b>',
         type: 'button-positive',
-        onTap: function(e) { return 'yesCount'; }
+        onTap: function(e) {
+          console.log('Tapped! Save');
+        }
       }
     ]
   });
-  myPopup.then(function(response) {
-	if(response)
-		socket.emit('questionResponse', queNumber, response);
-	else
-		socket.emit('questionResponse', queNumber, 'notAnswered');
+  myPopup.then(function(res) {
+    console.log('Tapped!', res);
   });
   $timeout(function() {
      myPopup.close(); //close the popup after some seconds 
