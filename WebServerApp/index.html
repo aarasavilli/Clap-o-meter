@@ -98,9 +98,17 @@ socket.on('updateClapinUI',function(counter){
     option.text = questionno;
     option.value = questionno;
     try {
+	console.log($("#combobox option[value='"+questionno+"']").length > 0);
+	if(!$("#combobox option[value='"+questionno+"']").length > 0)
+	{
         combo.add(option, null); //Standard 
+	}
     }catch(error) {
+	if(!$("#combobox option[value='yourValue']").length > 0)
+	{
         combo.add(option); // IE only
+	}
+       
     }
    questionno= "";
 }
@@ -108,7 +116,9 @@ socket.on('updateClapinUI',function(counter){
 	
 	function selectquestion() {
 	var selectedquestion=$('#combobox :selected').text();
-	alert(selectedquestion.split("."));
+	var split=selectedquestion.split(".")
+    var id = split[1]-1;
+	alert(id);
       socket.emit('event:sendquestionselected',function(selectedquestion) {
                     });
 		}
