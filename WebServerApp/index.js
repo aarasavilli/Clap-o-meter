@@ -22,11 +22,11 @@ io.on('connection', function(client){
 	});
 	client.on('event:sendquestionselected',function(questionno){
    console.log( 'inside event');
-	//communicationServerSocket.emit('sendquestionselected',result);
+	communicationServerSocket.emit('sendquestionselected',questionno);
 	});
 	client.on('gotresponseforquestionselected',function(result){
 
-	io.emit('gotresponseforquestionselected',result);
+	io.emit('gotresponseforquestionselectedOnUI',result);
 	});
 	
 });
@@ -37,6 +37,3 @@ io.on('disconnect', function(){
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
-
-
-

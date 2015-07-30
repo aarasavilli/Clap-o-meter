@@ -86,8 +86,8 @@ socket.on('updateClapinUI',function(counter){
 	aa(result.question,result.yesCount,result.noCount,result.dontCareCount,result.notAnswered);
 	}
     });
-	socket.on('gotresponseforquestionselected',function(result){
-			aa(result.question,result.yescount,result.nocount,result.dontcarecount,result.notAnswered);
+	socket.on('gotresponseforquestionselectedOnUI',function(result){
+		aa(result.question,result.yesCount,result.noCount,result.dontCareCount,result.notAnswered);
 	});
 	
 	
@@ -124,8 +124,10 @@ socket.on('updateClapinUI',function(counter){
 	var split=selectedquestion.split(".")
     var selectedquestionid = split[1]-1;
 	//alert(id);
-      socket.emit('event:sendquestionselected',selectedquestionid);
+		if(selectedquestionid) {
+			socket.emit('event:sendquestionselected',selectedquestionid);
 		}
+	}
    
    
 function aa(question,yescnt,nocnt,dontcarecnt,notanswered) {

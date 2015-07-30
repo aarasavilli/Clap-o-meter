@@ -174,8 +174,11 @@ io.on('connection', function(socket){
 		webServerSocket.emit('questionResponse',questionID,questionArray[questionID]);
 	});
 	
-	socket.on('connection', function() {
+	socket.on('sendquestionselected', function(reqQuestionID) {
 		console.log('Recevied test');
+		answers.answerForQuestionID(reqQuestionID, function(docResult) {
+			webServerSocket.emit('gotresponseforquestionselected', docResult);
+		});
 	})
 	
     socket.on('event:new:clap',function(callback){
