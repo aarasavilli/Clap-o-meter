@@ -92,7 +92,8 @@ function updateArray() {
 		console.log('Docs are:'+docs);
 		for (var i = 0; i < docs.length; i++) {
 			console.log('Name--->:'+docs[i].question);
-			questionArray[i].question = docs[i].question;
+			console.log('Array:'+questionArray[i].question);
+			questionArray[docs[i].questionId].question = docs[i].question;
 		}
 	});
 }
@@ -112,12 +113,17 @@ setInterval(function() {
   webServerSocket.emit('updateClap',counter);
 }, 1000);
 
+setInterval(function() {  
+	claps.add(counter, new Date(), function(){});
+}, 30000);
+
 io.on('connection', function(socket){
 	insertQuestionsToDB();
 	updateArray();
 	var question;
 	// Emit questions logic : read a question at a regular interval and emit question to mobile client
 	var questionCounter = setInterval(function () {myTimer()}, 10000);
+	
 	var queNumber = 0;
 	function myTimer() {
 		if(queNumber < questionArray.length){
@@ -157,7 +163,6 @@ io.on('connection', function(socket){
     socket.on('event:new:clap',function(callback){
 		counter = counter+1;
 		console.log('clap count: '+counter);
-		claps.add(counter, new Date(), function(){});
 		io.emit('updateClap',counter);
 		webServerSocket.emit('updateClap',counter);
 		return callback(counter);
