@@ -81,8 +81,7 @@ socket.on('updateClapinUI',function(counter){
 	aa(result.question,result.yesCount,result.noCount,result.dontCareCount);
     });
 	socket.on('gotresponseforquestionselected',function(result){
-	var jsonresult = JSON.parse(result);
-			aa(jsonresult.question,jsonresult.yescount,jsonresult.nocount,jsonresult.dontcarecount);
+			aa(result.question,result.yescount,result.nocount,result.dontcarecount);
 	});
 	
 	
@@ -117,10 +116,9 @@ socket.on('updateClapinUI',function(counter){
 	function selectquestion() {
 	var selectedquestion=$('#combobox :selected').text();
 	var split=selectedquestion.split(".")
-    var id = split[1]-1;
-	alert(id);
-      socket.emit('event:sendquestionselected',function(selectedquestion) {
-                    });
+    var selectedquestionid = split[1]-1;
+	//alert(id);
+      socket.emit('event:sendquestionselected',selectedquestionid);
 		}
    
    
@@ -131,7 +129,7 @@ function aa(question,yescnt,nocnt,dontcarecnt) {
 		// this is how we set the data of chart
 		// note: on top, "chart" variable is declared
 		 chart.setTitle({
-            text: question
+         text: question
         });
 		chart.series[0].setData(chartData);
 		

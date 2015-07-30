@@ -21,8 +21,8 @@ io.on('connection', function(client){
 	io.emit('UpdateQuestionResponseinUI',id,result);
 	});
 	client.on('event:sendquestionselected',function(questionno){
-
-	communicationServerSocket.emit('sendquestionselected',result);
+   console.log( 'inside event');
+	//communicationServerSocket.emit('sendquestionselected',result);
 	});
 	client.on('gotresponseforquestionselected',function(result){
 
