@@ -30,11 +30,10 @@ var questions = {
 				for (var i = 0; i < docs.length; i++) {
 					console.log('Name:'+docs[i].question);
 				}
-			
-			
 				return callback(docs);
-		}
-	)},
+			}
+		)
+	},
 	
 	insert: function(questionId, question, callback) {
 	  db.questions.insert({questionId:questionId, question:question, answers: ['YES', 'NO', 'Dont Care']}, function (err, doc) { 

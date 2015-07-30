@@ -22,14 +22,24 @@ var answers = {
 		}
 	)},
 	
-	allDetails: function(callback) {
-		console.log('Fetching all questions from DB');
-	  	db.answersanswers.find({}, 
+	allAnswers: function(callback) {
+		console.log('Fetching all answers from DB');
+	  	db.answers.find({}, 
 			function(error, docs) {
-				console.log('Returning all questions from DB'+docs);
-				return callback(docs);
-		}
-	)},
+				console.log('Returning all answers from DB'+docs);
+				for (var i = 0; i < docs.length; i++) {
+					console.log('Name:'+docs[i].question);
+				}
+			return callback(docs);
+			}
+		)
+	},
+	
+	updateCountsForQuestionId: function(questionId, yesCount, noCount, dontCareCount, notAnswered, callback) {
+	  db.answers.update({questionId:questionId},{ $set:{"yesCount":yesCount,"noCount":noCount,"dontCareCount":dontCareCount,"notAnswered":notAnswered}},{}, function (err, doc) { 
+	  	console.log('Following record is updated successfully:'+'QuestionID'+doc.questionId+'Question:'+doc.question);
+	  });
+	},
 	
 	insert: function(data, callback) {
 	  db.answers.insert(data, function (err, doc) { 

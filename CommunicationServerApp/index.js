@@ -127,8 +127,7 @@ io.on('connection', function(socket){
 	var queNumber = 0;
 	function myTimer() {
 		if(queNumber < questionArray.length){
-			//console.log('number :' + queNumber + ' question : '+ questionArray[queNumber].question);
-				questions.questionWithID(queNumber, function(doc){
+			questions.questionWithID(queNumber, function(doc){
 				if(doc) {
 					question = doc.question;
 					console.log('question : '+question );
@@ -140,7 +139,26 @@ io.on('connection', function(socket){
 			});
 		}
 		else {
-			answers.insert(questionArray, function(){});
+			answers.allAnswers(function(docs) {
+				console.log('Docs fetched here are:'+docs);
+				if (docs.length > 0) {
+					for (var i = 0; i < docs.length; i++) {
+						answers.answerForQuestionID(i, function(docResult) {
+							console.log('Updating entries');
+							console.log('Details are:YesCount:'+docResult.yesCount+'--->No Count:'+docResult.noCount+'--->DontCare:'+docResult.dontCareCount);
+							answers.updateCountsForQuestionId(questionArray[docResult.questionId].questionId,
+														questionArray[docResult.questionId].yesCount,
+														questionArray[docResult.questionId].noCount,
+														questionArray[docResult.questionId].dontCareCount,
+														questionArray[docResult.questionId].notAnswered, function(){});
+							});
+					}
+				}
+				else {
+					console.log('Inserting entries');
+					answers.insert(questionArray, function(){});
+				}
+			});
 			clearInterval(questionCounter);
 			console.log('counter stopped');
 		}
