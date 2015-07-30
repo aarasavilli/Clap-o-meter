@@ -29,8 +29,9 @@
  <option value="none">Select Question</option>
 </select>
 </div>
-<div id="container" style="margin-top:20px;min-width: 310px; margin-top:10px;max-width: 800px; height: 400px; margin: 0 auto"></div>
-
+<div style="text-align:center">
+<div id="container" style="margin-top:20px;min-width: 400px; margin-top:10px;max-width:auto; height: 400px; margin: 0 auto"></div>
+</div>
 </div>
 <script>
 
@@ -78,10 +79,15 @@ socket.on('updateClapinUI',function(counter){
 	questionno="Ques."+questionno;
 	addoptiontoCombo(""+questionno);			
 	console.log(result.question+result.yesCount+result.noCount+result.dontCareCount);
-	aa(result.question,result.yesCount,result.noCount,result.dontCareCount);
+	
+	if($('#combobox :selected').text()==="Select Question")
+	{
+	console.log("inside combobox if");
+	aa(result.question,result.yesCount,result.noCount,result.dontCareCount,result.notAnswered);
+	}
     });
 	socket.on('gotresponseforquestionselected',function(result){
-			aa(result.question,result.yescount,result.nocount,result.dontcarecount);
+			aa(result.question,result.yescount,result.nocount,result.dontcarecount,result.notAnswered);
 	});
 	
 	
@@ -122,12 +128,9 @@ socket.on('updateClapinUI',function(counter){
 		}
    
    
-function aa(question,yescnt,nocnt,dontcarecnt) {
+function aa(question,yescnt,nocnt,dontcarecnt,notanswered) {
 	
-		var chartData = [yescnt, nocnt, dontcarecnt];
-		//var chartData = [130, 100, 150];
-		// this is how we set the data of chart
-		// note: on top, "chart" variable is declared
+		var chartData = [yescnt, nocnt, dontcarecnt,notanswered];
 		 chart.setTitle({
          text: question
         });
@@ -155,7 +158,7 @@ $(function () {
             text: 'Response Count'
         },
         xAxis: {
-            categories: ['Yes', 'No', 'Dont Care']
+            categories: ['Yes', 'No', 'Dont Care','Not Answered']
         },
         yAxis: {
             min: 0,
@@ -173,7 +176,7 @@ $(function () {
         },
         series: [{
             name: 'QuestionClapedCount',
-            data: [15, 20, 40]
+            data: [15, 20, 40, 20]
         }]
     });
 
