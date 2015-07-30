@@ -8,11 +8,12 @@ angular.module('clap.controllers',['ionic'])
 
 		}
 		
-		socket.on('showQuestion',function(queNumber,question){
+		socket.on('showQuestion',function(queNumber,question,ansOptions){
+			console.log('Answer options are:'+ansOptions);
 			var myPopup = $ionicPopup.show({
     template: question,
     title: 'Quiz',
-    subTitle: 'Please use normal things',
+    subTitle: '',
     scope: $scope,
     buttons: [
 	  { text: 'Dont Care',
