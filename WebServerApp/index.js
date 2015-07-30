@@ -16,9 +16,9 @@ io.on('connection', function(client){
 	io.emit('updateClapinUI',counter);
 	//io.emit('UpdateQuestionCountinUI','[{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}]');
 	});
-	client.on('questionResponse',function(result){
-       console.log(result);
-	io.emit('UpdateQuestionResponseinUI',result);
+	client.on('questionResponse',function(id,result){
+       console.log(id+"\n"+result.question+result.yesCount+result.noCount+result.dontCareCount);
+	io.emit('UpdateQuestionResponseinUI',id,result);
 	});
 	client.on('event:sendquestionselected',function(questionno){
 
