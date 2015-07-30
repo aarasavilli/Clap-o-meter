@@ -89,10 +89,10 @@ function insertQuestionsToDB() {
 
 function updateArray() {
 	questions.allQuestions(function(docs){
-		console.log('Docs are:'+docs);
+		//console.log('Docs are:'+docs);
 		for (var i = 0; i < docs.length; i++) {
-			console.log('Name--->:'+docs[i].question);
-			console.log('Array:'+questionArray[i].question);
+			//console.log('Name--->:'+docs[i].question);
+			//console.log('Array:'+questionArray[i].question);
 			questionArray[docs[i].questionId].question = docs[i].question;
 		}
 	});
@@ -130,7 +130,7 @@ io.on('connection', function(socket){
 			questions.questionWithID(queNumber, function(doc){
 				if(doc) {
 					question = doc.question;
-					console.log('question : '+question );
+					//console.log('question : '+question );
 					socket.emit('showQuestion', doc.questionId, question, doc.answers);
 					//console.log('question : '+ questionArray[queNumber].question);
 					//socket.emit('showQuestion', questionArray[queNumber].question);
@@ -140,12 +140,12 @@ io.on('connection', function(socket){
 		}
 		else {
 			answers.allAnswers(function(docs) {
-				console.log('Docs fetched here are:'+docs);
+				//console.log('Docs fetched here are:'+docs);
 				if (docs.length > 0) {
 					for (var i = 0; i < docs.length; i++) {
 						answers.answerForQuestionID(i, function(docResult) {
 							console.log('Updating entries');
-							console.log('Details are:YesCount:'+docResult.yesCount+'--->No Count:'+docResult.noCount+'--->DontCare:'+docResult.dontCareCount);
+							//console.log('Details are:YesCount:'+docResult.yesCount+'--->No Count:'+docResult.noCount+'--->DontCare:'+docResult.dontCareCount);
 							answers.updateCountsForQuestionId(questionArray[docResult.questionId].questionId,
 														questionArray[docResult.questionId].yesCount,
 														questionArray[docResult.questionId].noCount,
@@ -166,7 +166,7 @@ io.on('connection', function(socket){
 	
 	//Receive response from mobile client
 	socket.on('questionResponse', function(questionID, response) {
-		console.log('Received response for ID: '+ questionID + ' - ' + response);
+		//console.log('Received response for ID: '+ questionID + ' - ' + response);
 		questionArray[questionID][response] = questionArray[questionID][response] + 1;
 		console.log('Stored : ' + questionArray[questionID][response]);
 		
@@ -175,7 +175,7 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('sendquestionselected', function(reqQuestionID) {
-		console.log('Recevied test');
+		//console.log('Recevied test');
 		answers.answerForQuestionID(reqQuestionID, function(docResult) {
 			webServerSocket.emit('gotresponseforquestionselected', docResult);
 		});

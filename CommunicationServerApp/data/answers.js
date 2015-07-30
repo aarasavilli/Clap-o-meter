@@ -6,10 +6,10 @@ var db = {
 
 var answers = {
 	answerForQuestionID: function(questionId, callback) {
-		console.log('Searching for question id:'+questionId);
+		//console.log('Searching for question id:'+questionId);
 	  	db.answers.findOne({questionId:questionId}, 
 			function(error, docs) {
-				 console.log('Following record is fetched:QuestionID'+docs.questionId+'Question:'+docs.question);
+				// console.log('Following record is fetched:QuestionID'+docs.questionId+'Question:'+docs.question);
 				return callback(docs);
 		}
 	)},
@@ -23,10 +23,10 @@ var answers = {
 	)},
 	
 	allAnswers: function(callback) {
-		console.log('Fetching all answers from DB');
+		//console.log('Fetching all answers from DB');
 	  	db.answers.find({}, 
 			function(error, docs) {
-				console.log('Returning all answers from DB'+docs);
+				//console.log('Returning all answers from DB'+docs);
 				for (var i = 0; i < docs.length; i++) {
 					console.log('Name:'+docs[i].question);
 				}
@@ -37,7 +37,7 @@ var answers = {
 	
 	updateCountsForQuestionId: function(questionId, yesCount, noCount, dontCareCount, notAnswered, callback) {
 	  db.answers.update({questionId:questionId},{ $set:{"yesCount":yesCount,"noCount":noCount,"dontCareCount":dontCareCount,"notAnswered":notAnswered}},{}, function (err, doc) { 
-	  	console.log('Following record is updated successfully:'+'QuestionID'+doc.questionId+'Question:'+doc.question);
+	  	//console.log('Following record is updated successfully:'+'QuestionID'+doc.questionId+'Question:'+doc.question);
 	  });
 	},
 	
