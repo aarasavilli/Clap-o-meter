@@ -37,7 +37,7 @@ angular.module('clap.controllers',['ionic'])
   });
   $timeout(function() {
      myPopup.close(); //close the popup after some seconds 
-  }, 5000);
+  }, 10000);
  
 
    

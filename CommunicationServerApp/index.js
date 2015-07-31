@@ -54,31 +54,31 @@ function insertQuestionsToDB() {
 
 	questions.questionWithID(0, function(docs){
 		if (docs == null) {
-			questions.insert(0, 'Humans are better computers.', function(){});
+			questions.insert(0, 'Should Friday be an optional holiday ?', function(){});
 		}
 	});
 	
 	questions.questionWithID(1, function(docs){
 		if (docs == null) {
-			questions.insert(1, 'Question 2 is better question.', function(){});
+			questions.insert(1, 'Do you want the release day of Baahubali-2 to be a national holiday ?', function(){});
 		}
 	});
 	
 	questions.questionWithID(2, function(docs){
 		if (docs == null) {
-			questions.insert(2, 'Question3 is misplaced.', function(){});
+			questions.insert(2, 'Are you interested to enroll for hobby club at Alliance ?', function(){});
 		}
 	});
 	
 	questions.questionWithID(3, function(docs){
 		if (docs == null) {
-			questions.insert(3, 'Did you answer all previous questions.', function(){});
+			questions.insert(3, 'Is Whatsapp dominating Facebook ?', function(){});
 		}
 	});
 	
 	questions.questionWithID(4, function(docs){
 		if (docs == null) {
-			questions.insert(4, 'Do you want this to be last question.', function(){});
+			questions.insert(4, 'Did you answer all previous questions ?', function(){});
 		}
 	});
 	
@@ -122,7 +122,7 @@ io.on('connection', function(socket){
 	updateArray();
 	var question;
 	// Emit questions logic : read a question at a regular interval and emit question to mobile client
-	var questionCounter = setInterval(function () {myTimer()}, 10000);
+	var questionCounter = setInterval(function () {myTimer()}, 30000);
 	
 	var queNumber = 0;
 	function myTimer() {
