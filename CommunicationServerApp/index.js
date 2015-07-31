@@ -144,7 +144,7 @@ io.on('connection', function(socket){
 				if (docs.length > 0) {
 					for (var i = 0; i < docs.length; i++) {
 						answers.answerForQuestionID(i, function(docResult) {
-							console.log('Updating entries');
+							//console.log('Updating entries');
 							//console.log('Details are:YesCount:'+docResult.yesCount+'--->No Count:'+docResult.noCount+'--->DontCare:'+docResult.dontCareCount);
 							answers.updateCountsForQuestionId(questionArray[docResult.questionId].questionId,
 														questionArray[docResult.questionId].yesCount,
@@ -155,7 +155,7 @@ io.on('connection', function(socket){
 					}
 				}
 				else {
-					console.log('Inserting entries');
+					//console.log('Inserting entries');
 					answers.insert(questionArray, function(){});
 				}
 			});

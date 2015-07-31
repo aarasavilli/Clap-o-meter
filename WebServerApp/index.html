@@ -123,8 +123,8 @@ socket.on('updateClapinUI',function(counter){
 	var selectedquestion=$('#combobox :selected').text();
 	var split=selectedquestion.split(".")
     var selectedquestionid = split[1]-1;
-	//alert(id);
-		if(selectedquestionid) {
+	//alert(selectedquestionid);
+		if(selectedquestionid || selectedquestionid === 0) {
 			socket.emit('event:sendquestionselected',selectedquestionid);
 		}
 	}

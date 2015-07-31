@@ -26,10 +26,10 @@ var questions = {
 		//console.log('Fetching all questions from DB');
 	  	db.questions.find({}, 
 			function(error, docs) {
-				console.log('Returning all questions from DB'+docs);
+				/*console.log('Returning all questions from DB'+docs);
 				for (var i = 0; i < docs.length; i++) {
 					console.log('Name:'+docs[i].question);
-				}
+				}*/
 				return callback(docs);
 			}
 		)
