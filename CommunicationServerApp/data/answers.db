@@ -1,0 +1,5 @@
+{"question":"Humans are better computers.","questionId":0,"yesCount":1,"noCount":1,"dontCareCount":0,"notAnswered":5,"_id":"AV8dFVFyRyHaO5nM"}
+{"question":"Question 2 is better question.","questionId":1,"yesCount":0,"noCount":2,"dontCareCount":0,"notAnswered":5,"_id":"a5vRzuXTjwl3s9Bj"}
+{"question":"Question3 is misplaced.","questionId":2,"yesCount":1,"noCount":1,"dontCareCount":1,"notAnswered":4,"_id":"N65w6XC1jcDxcBeW"}
+{"question":"Did you answer all previous questions.","questionId":3,"yesCount":0,"noCount":2,"dontCareCount":1,"notAnswered":4,"_id":"gtyKyV8xsQyhjdSg"}
+{"question":"Do you want this to be last question.","questionId":4,"yesCount":2,"noCount":1,"dontCareCount":0,"notAnswered":4,"_id":"z2qSnU3bW2sm8vJm"}

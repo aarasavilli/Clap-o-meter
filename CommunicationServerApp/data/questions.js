@@ -6,7 +6,7 @@ var db = {
 
 var questions = {
 	questionWithID: function(questionId, callback) {
-		console.log('Searching for question id:'+questionId);
+		//console.log('Searching for question id:'+questionId);
 	  	db.questions.findOne({questionId:questionId}, 
 			function(error, docs) {
 				 //console.log('Following record is fetched:QuestionID'+docs.questionId+'Question:'+docs.question);
@@ -23,13 +23,13 @@ var questions = {
 	)},
 	
 	allQuestions: function(callback) {
-		console.log('Fetching all questions from DB');
+		//console.log('Fetching all questions from DB');
 	  	db.questions.find({}, 
 			function(error, docs) {
-				console.log('Returning all questions from DB'+docs);
+				/*console.log('Returning all questions from DB'+docs);
 				for (var i = 0; i < docs.length; i++) {
 					console.log('Name:'+docs[i].question);
-				}
+				}*/
 				return callback(docs);
 			}
 		)

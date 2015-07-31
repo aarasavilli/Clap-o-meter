@@ -123,8 +123,13 @@ socket.on('updateClapinUI',function(counter){
 	var selectedquestion=$('#combobox :selected').text();
 	var split=selectedquestion.split(".")
     var selectedquestionid = split[1]-1;
+<<<<<<< HEAD
+	
+		if(selectedquestionid >= 0) {
+=======
 	//alert(selectedquestionid);
 		if(selectedquestionid || selectedquestionid === 0) {
+>>>>>>> 8dc445f67483f90c6c096d19de7d2b842da027cc
 			socket.emit('event:sendquestionselected',selectedquestionid);
 		}
 	}
