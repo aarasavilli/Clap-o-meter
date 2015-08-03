@@ -1,0 +1,9 @@
+
+h2{box-shadow:1px 1px 3px #000;color:#00BCFF;text-shadow:1px 1px #000;background:#DBEFF5;
+ padding:15px 5px;margin:0px;text-align:center;
+ font-size:30px;
+}
+body {
+  background: url("img/bg.gif");
+  font:14px Arial;
+}
