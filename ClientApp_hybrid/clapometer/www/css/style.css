@@ -1,8 +1,8 @@
 * {
   margin: 0;
 }
-body {
-  background: url("img/bg.gif");
+body ,.view-container,.pane{
+  background: #333 url(../img/bg.gif);
   font:14px Arial;
 }
 @keyframes circle {
@@ -15,6 +15,66 @@ body {
 		opacity: 0;
 		}
 }
+@-webkit-keyframes circle {
+	from {
+		-webkit-transform: scale(0);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: scale(2);
+		opacity: 0;
+		}
+}
+@keyframes text-animation {
+	from {
+		
+		opacity: 0;
+		background:#fff;
+		text-shadow:0px 0px #000;
+		}
+	to {
+		
+		opacity: 1;
+		background:#000
+		text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+	}
+}
+@-webkit-keyframes text-animation {
+from {
+		
+		opacity: 0;
+		background:#fff;
+		text-shadow:0px 0px #000;
+		}
+	to {
+		
+		opacity: 1;
+		background:#000
+		text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+	}
+	
+}
+
+
+
+
+.circle-small {
+  width: 50px;
+  height: 50px;  
+  background:rgba(256,256,256,0.3);
+  /*border-radius: 50%;*/
+  z-index:999;
+  position:absolute;
+  top:26%;  
+  
+}
+.left-small{
+left:1%;
+}
+.right-small{
+right:1%;
+}
+
 .circle {
   margin: 0 auto;
   width: 200px;
@@ -43,19 +103,29 @@ body {
     width: 200px;
     z-index: 999;
 }
+
+.text-Animate{
+animation: text-animation 5s infinite linear;
+  -webkit-animation: text-animation 5s infinite linear;
+}
+
 .one {
   animation: circle 10s infinite linear;
+  -webkit-animation: circle 10s infinite linear;
 }
 .two {
   animation: circle 8s infinite linear;
+  -webkit-animation: circle 8s infinite linear;
 }
 .three {
   animation: circle 1s infinite linear;
+  -webkit-animation: circle 1s infinite linear;
 } 
+.animated-circle-ctr {position:relative;}
 .clapBlock{ position:relative;width:450px;margin:30px auto;cursor:hand;cursor:pointer;}
 .clapBlock img{width:100%;z-index:888;
 }
-h2{box-shadow:1px 1px 3px #000;color:#00BCFF;text-shadow:1px 1px #000;background:#DBEFF5;
+h2.app-header{box-shadow:1px 1px 3px #000;color:#00BCFF;text-shadow:1px 1px #000;background:#DBEFF5;
  padding:15px 5px;margin:0px;text-align:center;
  font-size:30px;
 }
@@ -66,4 +136,17 @@ h2{box-shadow:1px 1px 3px #000;color:#00BCFF;text-shadow:1px 1px #000;background
 	left:28%;
 	top:45%;
 	}
+}
+.middle{
+
+}
+.text-middle{
+text-align:center;
+font-weight:bold;
+background:transparent;
+color: #fff;
+	text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+	font-size:50px;
+	padding:20px;
+	
 }
