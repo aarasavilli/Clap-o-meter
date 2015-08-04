@@ -34,6 +34,8 @@
 <div id="container" style="width: 800px; height: 400px; margin-top:60px;margin-bottom:0px;margin-right:auto;margin-left:auto"></div>
 </div>
 </div>
+	  	<input type='text' id='selectedName'>Name</input>
+	<button onclick = 'updateNameChange()'>Update</button>
 <script>
 
 var socket = io.connect();
@@ -189,6 +191,10 @@ $(function () {
 	
  
 });
+	
+	function updateNameChange() {
+		socket.emit('nameChanged', document.getElementById('selectedName').value);
+	}
 	</script>
   </body>
 	

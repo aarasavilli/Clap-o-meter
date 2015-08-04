@@ -9,6 +9,7 @@ var claps = require('./data/claps');
 var questions = require('./data/questions');
 var answers = require('./data/answers');
 
+var dataForGraph = [];
 var counter = 0;
 var questionArray= 
 					[
@@ -114,8 +115,11 @@ setInterval(function() {
 }, 1000);
 
 setInterval(function() {  
+	dataForGraph.push(counter);
+	console.log('Pushing data:'+dataForGraph);
+	webServerSocket.emit('dataForGraph', dataForGraph);
 	claps.add(counter, new Date(), function(){});
-}, 30000);
+}, 3000);
 
 io.on('connection', function(socket){
 	insertQuestionsToDB();
@@ -164,6 +168,13 @@ io.on('connection', function(socket){
 		}
 	}
 	
+	socket.on('nameChanged', function(name) {
+		console.log('Name changed to'+name);
+		claps.add(counter, new Date(), function(){});
+		counter = 0;
+		dataForGraph = [];
+	});
+			  
 	//Receive response from mobile client
 	socket.on('questionResponse', function(questionID, response) {
 		//console.log('Received response for ID: '+ questionID + ' - ' + response);

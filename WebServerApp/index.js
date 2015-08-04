@@ -28,7 +28,14 @@ io.on('connection', function(client){
 
 	io.emit('gotresponseforquestionselectedOnUI',result);
 	});
-	
+	client.on('dataForGraph',function(data){
+		console.log('Data from client:'+data);
+	});
+		client.on('nameChanged',function(name){
+		console.log('Value from client:'+name);
+		communicationServerSocket.emit('nameChanged',name);
+	})
+
 });
 
 io.on('disconnect', function(){
