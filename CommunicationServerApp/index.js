@@ -9,7 +9,9 @@ var claps = require('./data/claps');
 var questions = require('./data/questions');
 var answers = require('./data/answers');
 
+
 var dataForGraph = [];
+//dataForGraph.push( new Date().getTime());
 var counter = 0;
 var questionArray= 
 					[
@@ -107,8 +109,9 @@ var countdown = 1000;
 
 setInterval(function() {  
   countdown--;
-  if(counter > 0)counter--;
+ // if(counter > 0)(counter = (counter+1)*1);
 	//  if(counter > 0){counter=counter-Math.round(0.1*counter);};
+  counter = 0;
   io.sockets.emit('timer', { countdown: countdown });
   io.emit('updateClap',counter);
   webServerSocket.emit('updateClap',counter);
@@ -172,7 +175,8 @@ io.on('connection', function(socket){
 		console.log('Name changed to'+name);
 		claps.add(counter, new Date(), function(){});
 		counter = 0;
-		dataForGraph = [];
+		//dataForGraph = [];
+		//dataForGraph.push( new Date().getTime());
 	});
 			  
 	//Receive response from mobile client

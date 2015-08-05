@@ -30,6 +30,8 @@ io.on('connection', function(client){
 	});
 	client.on('dataForGraph',function(data){
 		console.log('Data from client:'+data);
+			io.emit('dataForGraphToUI',data);
+
 	});
 		client.on('nameChanged',function(name){
 		console.log('Value from client:'+name);

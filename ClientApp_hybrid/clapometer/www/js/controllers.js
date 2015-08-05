@@ -12,7 +12,7 @@ angular.module('clap.controllers',['ionic'])
 		$scope.countdown = function() {
 			stopped = $timeout(function() {
 			   console.log($scope.counter);
-			 $scope.counter--;   
+			 $scope.counter = ($scope.counter+1);   
 			 if($scope.counter==0)
 			  $scope.counter=60;	
 		  
@@ -27,7 +27,7 @@ angular.module('clap.controllers',['ionic'])
    $scope.responsenoCount=function(index){	  
 	   console.log(index + responseText[index]);
 	   socket.emit('questionResponse', $scope.queNumber, responseText[index]);	   
-	   $ionicSlideBoxDelegate.slide(1);
+	  // $ionicSlideBoxDelegate.slide(1);
        $scope.countdown();
 	   questionAnswered=true;
 
@@ -36,7 +36,7 @@ angular.module('clap.controllers',['ionic'])
   socket.on('showQuestion',function(queNumber,question,ansOptions){
 			$scope.questionText = question;
 			$scope.queNumber = queNumber;
-			$ionicSlideBoxDelegate.slide(2);
+			//$ionicSlideBoxDelegate.slide(2);
 			console.log('Answer options are:'+ansOptions);
 			questionAnswered=false;
 			$timeout(function() {		

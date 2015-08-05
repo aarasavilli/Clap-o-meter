@@ -40,7 +40,7 @@
 
 var socket = io.connect();
 var gauge;
-
+var initialDate =  new Date().getTime();
 	var opts = {
   lines: 12, // The number of lines to draw
   angle: 0.15, // The length of each line
@@ -61,7 +61,11 @@ gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 gauge.maxValue = 30; // set max gauge value
 gauge.animationSpeed = 43; // set animation speed (32 is default value)
 
-
+	socket.on('dataForGraphToUI',function(data){
+		dataForGraph = data;
+		console.log('Data from client------:'+dataForGraph);
+		chart.series[0].setData(dataForGraph);
+	});
 
 socket.on('updateClapinUI',function(counter){
 		
@@ -78,11 +82,13 @@ socket.on('updateClapinUI',function(counter){
 	$('#container').show();
 	$('#combobox').show();
 	}
+			$('#container').show();
+
 	var questionno=id+1;
 	questionno="Ques."+questionno;
 	addoptiontoCombo(""+questionno);			
 	console.log(result.question+result.yesCount+result.noCount+result.dontCareCount);
-	
+	var dataForGraph;
 	if($('#combobox :selected').text()==="Select Question")
 	{
 	console.log("inside combobox if");
@@ -139,7 +145,7 @@ function aa(question,yescnt,nocnt,dontcarecnt,notanswered) {
 		 chart.setTitle({
          text: question
         });
-		chart.series[0].setData(chartData);
+		chart.series[0].setData(dataForGraph);
 		
 	
 
@@ -152,18 +158,20 @@ $(function () {
 	// create chart
 	
 
-	$('#container').hide();
+	//$('#container').hide();
 	$('#combobox').hide();
 	chart = new Highcharts.Chart({
         chart: {
 		renderTo: 'container',
-            type: 'column'
+            type: 'StockChart'
         },
         title: {
             text: 'Response Count'
         },
         xAxis: {
-            categories: ['Yes', 'No', 'Dont Care','Not Answered']
+			  gapGridLineWidth: 0
+            //categories: ['Yes', 'No', 'Dont Care','Not Answered']
+			
         },
         yAxis: {
             min: 0,
@@ -179,8 +187,11 @@ $(function () {
                 stacking: 'normal'
             }
         },
+		
         series: [{
             name: 'QuestionClapedCount',
+			type: 'area',
+			gapSize: 5,
             data: [15, 20, 40, 20]
         }]
     });
@@ -194,7 +205,16 @@ $(function () {
 	
 	function updateNameChange() {
 		socket.emit('nameChanged', document.getElementById('selectedName').value);
+				chart.series[0].setData(dataForGraph);
+		var currentTime =  initialDate - new Date().getTime(); 
+		//alert('time'+currentTime+'Xaxis value'+chart.xAxis.tick);
+		//chart.xAxis[0].addPlotBand();
+
 	}
+	
+	
+
+		
 	</script>
   </body>
 	
