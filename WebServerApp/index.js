@@ -20,11 +20,11 @@ io.on('connection', function(client){
 	//io.emit('UpdateQuestionCountinUI','[{"question":"what is the count","yescount":"20","nocount":"20","dontcarecount":"20"}]');
 	});
 	client.on('questionResponse',function(id,result){
-       console.log(id+"\n"+result.question+result.yesCount+result.noCount+result.dontCareCount);
+       //console.log(id+"\n"+result.question+result.yesCount+result.noCount+result.dontCareCount);
 	io.emit('UpdateQuestionResponseinUI',id,result);
 	});
 	client.on('event:sendquestionselected',function(questionno){
-   console.log( 'inside event');
+  // console.log( 'inside event');
 	communicationServerSocket.emit('sendquestionselected',questionno);
 	});
 	client.on('gotresponseforquestionselected',function(result){
@@ -32,12 +32,12 @@ io.on('connection', function(client){
 	io.emit('gotresponseforquestionselectedOnUI',result);
 	});
 	client.on('dataForGraph',function(data){
-		console.log('Data from client:'+data);
+		//console.log('Data from client:'+data);
 			io.emit('dataForGraphToUI',data);
 
 	});
 		client.on('nameChanged',function(name){
-		console.log('Value from client:'+name);
+		//console.log('Value from client:'+name);
 		communicationServerSocket.emit('nameChanged',name);
 	})
 
