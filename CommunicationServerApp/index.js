@@ -11,7 +11,6 @@ var answers = require('./data/answers');
 
 
 var dataForGraph = [];
-//dataForGraph.push( new Date().getTime());
 var counter = 0;
 var questionArray= 
 					[
@@ -119,7 +118,7 @@ setInterval(function() {
 
 setInterval(function() {  
 	dataForGraph.push(counter);
-	console.log('Pushing data:'+dataForGraph);
+	//console.log('Pushing data:'+dataForGraph);
 	webServerSocket.emit('dataForGraph', dataForGraph);
 	claps.add(counter, new Date(), function(){});
 }, 3000);

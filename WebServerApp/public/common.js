@@ -5,7 +5,7 @@ var gauge;
 var chart;
 
 var initialDate =  new Date().getTime();
-	var opts = {
+	/*var opts = {
   lines: 12, // The number of lines to draw
   angle: 0.15, // The length of each line
   lineWidth: 0.44, // The line thickness
@@ -23,23 +23,23 @@ var initialDate =  new Date().getTime();
 var target = document.getElementById('foo'); // your canvas element
 gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 gauge.maxValue = 30; // set max gauge value
-gauge.animationSpeed = 43; // set animation speed (32 is default value)
+gauge.animationSpeed = 43; // set animation speed (32 is default value)*/
 
 	socket.on('dataForGraphToUI',function(data){
 		dataForGraph = data;
-		console.log('Data from client------:'+dataForGraph);
+		//console.log('Data from client------:'+dataForGraph);
 		chart.series[0].setData(dataForGraph);
 	});
 
 socket.on('updateClapinUI',function(counter){
 		
-		gauge.set(counter);
-		document.getElementById('odo').innerHTML = counter;
+		//gauge.set(counter);
+		//document.getElementById('odo').innerHTML = counter;
     });
 	
 	//update barchart on each question event
 	socket.on('UpdateQuestionResponseinUI',function(id,result){
-	console.log(id+""+result);
+	/*console.log(id+""+result);
 	if(!$("#container").is(':visible'))
 	{
 	console.log("visible"+$("#container").is(':visible'));
@@ -57,19 +57,19 @@ socket.on('updateClapinUI',function(counter){
 	{
 	console.log("inside combobox if");
 	aa(result.question,result.yesCount,result.noCount,result.dontCareCount,result.notAnswered);
-	}
+	}*/
     });
 	socket.on('gotresponseforquestionselectedOnUI',function(result){
-		aa(result.question,result.yesCount,result.noCount,result.dontCareCount,result.notAnswered);
+		//aa(result.question,result.yesCount,result.noCount,result.dontCareCount,result.notAnswered);
 	});
 	
 	
 	function getCounterValue() {
 		socket.emit('event:get:countervalue',function(counterValue) {
-				alert('call back called'+counterValue);
+				//alert('call back called'+counterValue);
 		});
 	}
-	function addoptiontoCombo(questionno) {
+	/*function addoptiontoCombo(questionno) {
     var combo = document.getElementById("combobox");
      
     var option = document.createElement("option");
@@ -113,7 +113,7 @@ function aa(question,yescnt,nocnt,dontcarecnt,notanswered) {
 		
 	
 
-	}
+	}*/
 	
 	//added by sonal
 
@@ -122,7 +122,7 @@ $(function () {
 	
 
 	//$('#container').hide();
-	$('#combobox').hide();
+
 	chart = new Highcharts.Chart({
         chart: {
 		renderTo: 'container',
@@ -197,16 +197,14 @@ function addoptiontoCombo(person_name) {
     }
    questionno= "";
 }
-function adduser()
-{
-var username=$("input:text").val();
-alert('User:'+username);
-addoptiontoCombo(username);
+function adduser() {
+	var username=$("input:text").val();
+	addoptiontoCombo(username);
+	$("input:text").val('');
 }
 	
 	function selectUser() {
 		var selectedPerson=$('#combobox :selected').text();
-		alert('Selected person is :'+selectedPerson);
 		socket.emit('nameChanged', selectedPerson);
 		chart.series[0].setData(dataForGraph);
 	}
