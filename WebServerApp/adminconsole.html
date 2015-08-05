@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>ADMIN CONSOLE</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
+	<script src="/socket.io-1.2.0.js"></script>
+	<script src="/jquery-latest.min.js"></script>
+	<script src="/common.js"></script>
+  </head>
+  <body>
+	  <div  style="text-align:center; margin-top:20px">
+		<input id="txtusername" type="text" style="placeholder:User Name">
+		<button id="btnadduser" onclick="adduser()">Add User</button>
+		<div style="text-align:center;margin-top:20px">
+			<select id="combobox" style="width:500px;border:3px solid;border-radius:5px;allign:center">
+				<option value="none">Select User</option>
+			</select>
+		</div>
+	<button id="updateUserChange"  style="margin-top:20px" onclick="selectUser()">Send User change notification</button>
+	  </div>
+  </body>
+<html>

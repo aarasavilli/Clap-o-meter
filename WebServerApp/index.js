@@ -4,6 +4,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var interIO = require('socket.io-client');
 var communicationServerSocket = interIO.connect('http://localhost:8001');
+app.get('/admin', function(req, res){
+  res.sendFile(__dirname + '/adminconsole.html');
+});
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
